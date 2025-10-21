@@ -22,11 +22,11 @@ function App() {
   async function reviewCode() {
     setLoading(true);
     try {
-      const response = await axios.post('https://code-review-backend-vt7r.vercel.app/ai/get-review', { code });
+      const response = await axios.post(import.meta.env.VITE_API_URL, { code });
       setReview(response.data);
     } catch (err) {
       console.error(err);
-      setReview('Error fetching review.');
+      setReview('⚠️ Error fetching review. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -34,33 +34,47 @@ function App() {
 
   return (
     <div className="app-container">
+      <header className="navbar">
+        <h1>💡 AI Code Reviewer</h1>
+      </header>
+
       <main>
         <section className="editor-panel">
+          <h2>Code Editor</h2>
           <Editor
             value={code}
             onValueChange={setCode}
-            highlight={code => prism.highlight(code, prism.languages.javascript, 'javascript')}
+            highlight={(code) =>
+              prism.highlight(code, prism.languages.javascript, 'javascript')
+            }
             padding={20}
             style={{
               fontFamily: '"Fira Code", monospace',
               fontSize: 16,
-              height: '100%',
+              minHeight: '300px',
               width: '100%',
             }}
           />
           <button className="review-btn" onClick={reviewCode} disabled={loading}>
-            {loading ? 'Reviewing...' : 'Review'}
+            {loading ? '⏳ Reviewing...' : '🚀 Review Code'}
           </button>
         </section>
 
         <section className="review-panel">
-          {loading ? <div className="loading">Loading review...</div> :
+          <h2>AI Review</h2>
+          {loading ? (
+            <div className="loading">Analyzing your code...</div>
+          ) : (
             <Markdown rehypePlugins={[rehypeHighlight]}>
-              {review || "Your code review will appear here."}
+              {review || "🧠 Your AI-generated review will appear here."}
             </Markdown>
-          }
+          )}
         </section>
       </main>
+
+      <footer className="footer">
+        <p>Made with ❤️ by Abhishek Singh</p>
+      </footer>
     </div>
   );
 }
