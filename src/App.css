@@ -62,19 +62,42 @@ main {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
 }
 
-.editor-panel h2,
-.review-panel h2 {
+.panel-header {
+  margin-bottom: 1rem;
+}
+
+.panel-header h2 {
   color: #93c5fd;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
   letter-spacing: 0.5px;
 }
 
-/* CODE EDITOR */
+/* CODE EDITOR SCROLL FIX */
+.editor-container {
+  flex: 1;
+  overflow-y: auto;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  padding: 0.5rem;
+  scrollbar-width: thin;
+}
+
+.editor-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.editor-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+
+/* Code styling */
 .editor-panel pre,
 .editor-panel code {
   background: transparent !important;
   color: #fff !important;
+  white-space: pre !important;
+  overflow-wrap: normal !important;
 }
 
 /* BUTTON */
@@ -107,6 +130,7 @@ main {
   overflow-y: auto;
   font-size: 1rem;
   line-height: 1.6;
+  padding-right: 1rem;
 }
 
 .review-panel::-webkit-scrollbar {

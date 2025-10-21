@@ -40,28 +40,34 @@ function App() {
 
       <main>
         <section className="editor-panel">
-          <h2>Code Editor</h2>
-          <Editor
-            value={code}
-            onValueChange={setCode}
-            highlight={(code) =>
-              prism.highlight(code, prism.languages.javascript, 'javascript')
-            }
-            padding={20}
-            style={{
-              fontFamily: '"Fira Code", monospace',
-              fontSize: 16,
-              minHeight: '300px',
-              width: '100%',
-            }}
-          />
+          <div className="panel-header">
+            <h2>Code Editor</h2>
+          </div>
+
+          <div className="editor-container">
+            <Editor
+              value={code}
+              onValueChange={setCode}
+              highlight={(code) =>
+                prism.highlight(code, prism.languages.javascript, 'javascript')
+              }
+              padding={20}
+              style={{
+                fontFamily: '"Fira Code", monospace',
+                fontSize: 16,
+              }}
+            />
+          </div>
+
           <button className="review-btn" onClick={reviewCode} disabled={loading}>
             {loading ? '⏳ Reviewing...' : '🚀 Review Code'}
           </button>
         </section>
 
         <section className="review-panel">
-          <h2>AI Review</h2>
+          <div className="panel-header">
+            <h2>AI Review</h2>
+          </div>
           {loading ? (
             <div className="loading">Analyzing your code...</div>
           ) : (
